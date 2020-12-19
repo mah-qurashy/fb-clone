@@ -4,8 +4,9 @@
       FB Clone
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button slot="end">
-        5 <ion-icon name="notifications-outline"></ion-icon>
+      <ion-button slot="end" (click)="clearNotifications()">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <ion-text>{{likesNotification}} new likes</ion-text>
 
       </ion-button>
     </ion-buttons>

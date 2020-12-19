@@ -9,14 +9,19 @@ import { PostsService } from './posts.service'
 	styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit, OnDestroy {
-	public posts: Post[] = []
+  public posts: Post[] = []
   private postsSub: Subscription
+  public likesNotification: number = 0
+  private likesSub: Subscription
 
 	constructor(private postsService: PostsService) {}
 
 	ngOnInit() {
 		this.postsSub = this.postsService.posts.subscribe((posts) => {
       this.posts = posts
+    })
+      this.likesSub = this.postsService.likes.subscribe((likes) => {
+        this.likesNotification = likes.likesCount
 
 		})
   }
@@ -31,9 +36,10 @@ export class HomePage implements OnInit, OnDestroy {
   }
   likePost(likes:number,id:string){
   
-    this.postsService.likePost(likes,id)
-
-    
+    this.postsService.likePost(likes,id,this.likesNotification)
+  }
+  clearNotifications(){
+    this.postsService.clearNotifications()
   }
 
 	//prevents rebuilding entire dom when single post is modified
