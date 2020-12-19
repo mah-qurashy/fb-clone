@@ -1,20 +1,59 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      FB Clone
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button slot="end">
+        5 <ion-icon name="notifications-outline"></ion-icon>
+
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-lg="6" offset-lg="3">
+        <ion-card>
+          <ion-card-content>
+            <ion-textarea placeholder="Whats on your mind?"></ion-textarea>
+            <div class="ion-text-right">
+              <ion-button>Post</ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-lg="6" offset-lg="3">
+        <ion-list>
+          <ion-card>
+            <ion-card-header>
+              <h2>Post 1</h2>
+              <div class="ion-text-right">
+                <ion-button>Like</ion-button>
+                <ion-button color="danger">Delete</ion-button>
+              </div>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-textarea class="comment" placeholder="Add a comment"></ion-textarea>
+              <div class="ion-text-right">
+                <ion-button>Reply</ion-button>
+              </div>
+              <ion-list>
+                <ion-item>
+                  <h3>Comment 1</h3>
+                  <div slot="end">
+                    <ion-button color="danger">Delete</ion-button>
+                  </div>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
