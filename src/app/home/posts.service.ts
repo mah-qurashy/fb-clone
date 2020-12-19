@@ -31,20 +31,18 @@ export class PostsService {
 	deletePost(id: string) {
 		this.postsCollection.doc(id).delete()
 	}
-	likePost(id: string) {
-    // this.postsCollection.doc(id).get().toPromise().then(doc=>{
-    //   let newLikes=doc.data().likes + 1
-    //   this.postsCollection.doc(id).update({likes: newLikes})
+	likePost(likes: number,id: string) {
+      this.postsCollection.doc(id).update({likes: likes+1})
+    // //using transactions in case of conflict, its noticably slower though
+		// var postsDocRef = this.postsCollection.doc(id).ref
+		// this.afs.firestore.runTransaction((trans) => {
+		// 	return trans.get(postsDocRef).then(function (postsDoc) {
+		// 		if (!postsDoc.exists) {
+		// 			throw 'Post does not exist'
+		// 		}
+		// 		var newLikes = postsDoc.data().likes + 1
+		// 		trans.update(postsDocRef, { likes: newLikes })
+		// 	})
     // })
-		var postsDocRef = this.postsCollection.doc(id).ref
-		this.afs.firestore.runTransaction((trans) => {
-			return trans.get(postsDocRef).then(function (postsDoc) {
-				if (!postsDoc.exists) {
-					throw 'Post does not exist'
-				}
-				var newLikes = postsDoc.data().likes + 1
-				trans.update(postsDocRef, { likes: newLikes })
-			})
-    })
 	}
 }

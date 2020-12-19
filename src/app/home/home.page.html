@@ -33,7 +33,7 @@
             <ion-card-header>
               <h2>{{post.content}}</h2>
               <div class="ion-text-right">
-                <ion-button (click)="likePost(post.id)">{{post.likes}} Like</ion-button>
+                <ion-button (click)="likePost(post.likes,post.id)">{{post.likes}} Like</ion-button>
                 <ion-button color="danger" (click)="deletePost(post.id)">Delete</ion-button>
               </div>
             </ion-card-header>

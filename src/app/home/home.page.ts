@@ -28,8 +28,11 @@ export class HomePage implements OnInit, OnDestroy {
   deletePost(id: string) {
     this.postsService.deletePost(id)
   }
-  likePost(id: string){
-    this.postsService.likePost(id)
+  likePost(likes:number,id:string){
+  
+    this.postsService.likePost(likes,id)
+
+    
   }
 
 	//prevents rebuilding entire dom when single post is modified
