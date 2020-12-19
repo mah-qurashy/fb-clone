@@ -18,9 +18,9 @@
       <ion-col size-lg="6" offset-lg="3">
         <ion-card>
           <ion-card-content>
-            <ion-textarea placeholder="Whats on your mind?"></ion-textarea>
+            <ion-textarea placeholder="Whats on your mind?" #postInput></ion-textarea>
             <div class="ion-text-right">
-              <ion-button (click)="addPost()">Post</ion-button>
+              <ion-button (click)="addPost(postInput.value)">Post</ion-button>
             </div>
           </ion-card-content>
         </ion-card>
@@ -33,8 +33,8 @@
             <ion-card-header>
               <h2>{{post.content}}</h2>
               <div class="ion-text-right">
-                <ion-button>{{post.likes}} Like</ion-button>
-                <ion-button color="danger" (click)="deletePost()">Delete</ion-button>
+                <ion-button (click)="likePost(post.id)">{{post.likes}} Like</ion-button>
+                <ion-button color="danger" (click)="deletePost(post.id)">Delete</ion-button>
               </div>
             </ion-card-header>
             <ion-card-content>

@@ -1,73 +1,42 @@
-import { Component } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Subscription } from 'rxjs'
+import { Post } from './post.model'
+import { PostsService } from './posts.service'
 
 @Component({
 	selector: 'app-home',
 	templateUrl: 'home.page.html',
 	styleUrls: ['home.page.scss'],
 })
-export class HomePage {
-	public posts = [
-		{
-			id: 1,
-			content: 'Post 1',
-			likes: 5,
-			comments: [
-				{
-					id: 1,
-					content: 'Comment 1',
-				},
-			],
-		},
-		{
-			id: 1,
-			content: 'Post 2',
-			likes: 5,
-			comments: [
-				{
-					id: 1,
-					content: 'Comment 1',
-				},
-			],
-		}
-	]
+export class HomePage implements OnInit, OnDestroy {
+	public posts: Post[] = []
+  private postsSub: Subscription
 
-	constructor() {}
+	constructor(private postsService: PostsService) {}
 
-	deletePost() {
-		this.posts = [
-      {
-        id: 1,
-        content: 'Post 2',
-        likes: 5,
-        comments: [
-          {
-            id: 1,
-            content: 'Comment 1',
-          },
-        ],
-      }
-		]
-	}
-	addPost() {
-		this.posts.push(		{
-			id: 1,
-			content: 'Post 2',
-			likes: 5,
-			comments: [
-				{
-					id: 1,
-					content: 'Comment 1',
-				},
-			],
+	ngOnInit() {
+		this.postsSub = this.postsService.posts.subscribe((posts) => {
+			this.posts = posts
 		})
   }
+  ngOnDestroy(){
+    this.postsSub.unsubscribe()
+  }
+	addPost(content: string) {
+    this.postsService.addPost(content)
+  }
+  deletePost(id: string) {
+    this.postsService.deletePost(id)
+  }
+  likePost(id: string){
+    this.postsService.likePost(id)
+  }
 
-	
 	//prevents rebuilding entire dom when single post is modified
 	trackPostByFn(index, post) {
 		return post.id
-  }
-  trackCommentByFn(index, comment) {
+	}
+	trackCommentByFn(index, comment) {
 		return comment.id
 	}
 }
