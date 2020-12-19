@@ -20,7 +20,7 @@
           <ion-card-content>
             <ion-textarea placeholder="Whats on your mind?"></ion-textarea>
             <div class="ion-text-right">
-              <ion-button>Post</ion-button>
+              <ion-button (click)="addPost()">Post</ion-button>
             </div>
           </ion-card-content>
         </ion-card>
@@ -33,7 +33,7 @@
             <ion-card-header>
               <h2>{{post.content}}</h2>
               <div class="ion-text-right">
-                <ion-button>Like</ion-button>
+                <ion-button>{{post.likes}} Like</ion-button>
                 <ion-button color="danger" (click)="deletePost()">Delete</ion-button>
               </div>
             </ion-card-header>
@@ -43,7 +43,7 @@
                 <ion-button>Reply</ion-button>
               </div>
               <ion-list>
-                <ion-item>
+                <ion-item *ngFor="let comment of post.comments trackBy: trackCommentByFn, let i = index">
                   <h3>Comment 1</h3>
                   <div slot="end">
                     <ion-button color="danger">Delete</ion-button>
