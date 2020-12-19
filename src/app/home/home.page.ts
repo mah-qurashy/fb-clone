@@ -16,7 +16,8 @@ export class HomePage implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this.postsSub = this.postsService.posts.subscribe((posts) => {
-			this.posts = posts
+      this.posts = posts
+
 		})
   }
   ngOnDestroy(){

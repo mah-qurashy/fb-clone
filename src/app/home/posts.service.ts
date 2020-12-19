@@ -14,8 +14,8 @@ export class PostsService {
 	private postsCollection: AngularFirestoreCollection<Post>
 	_posts: Observable<Post[]>
 	constructor(private afs: AngularFirestore) {
-		this.postsCollection = afs.collection<Post>('posts')
-		this._posts = this.postsCollection.valueChanges({ idField: 'id' })
+		this.postsCollection = afs.collection<Post>('posts', ref => ref.orderBy('date','desc'))
+    this._posts = this.postsCollection.valueChanges({ idField: 'id' })
 	}
 
 	get posts() {
@@ -24,7 +24,8 @@ export class PostsService {
 	addPost(content: string) {
 		const post = {
 			content,
-			likes: 0,
+      likes: 0,
+      date: Date.now()
 		}
 		this.postsCollection.add(post)
 	}
