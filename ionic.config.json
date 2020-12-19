@@ -1,0 +1,7 @@
+{
+  "name": "FB Clone",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
