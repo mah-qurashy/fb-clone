@@ -32,7 +32,9 @@
         <ion-list>
           <ion-card *ngFor="let post of posts trackBy: trackPostByFn, let i = index">
             <ion-card-header>
-              <h2>{{post.content}}</h2>
+              <ion-card-title>
+              {{post.content}}
+              </ion-card-title>
               <div class="ion-text-right">
                 <ion-button (click)="likePost(post.likes,post.id)">{{post.likes}} Like</ion-button>
                 <ion-button color="danger" (click)="deletePost(post.id)">Delete</ion-button>
