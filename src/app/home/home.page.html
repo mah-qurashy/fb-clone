@@ -6,7 +6,7 @@
     <ion-buttons slot="end">
       <ion-button slot="end" (click)="clearNotifications()">
         <ion-icon name="notifications-outline"></ion-icon>
-        <ion-text>{{likesNotification}} new likes</ion-text>
+        <ion-text>{{likesNotification}} new like<span *ngIf="likesNotification!==1">s</span></ion-text>
 
       </ion-button>
     </ion-buttons>
