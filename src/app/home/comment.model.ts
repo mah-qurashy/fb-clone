@@ -1,4 +1,6 @@
 export interface Comment {
-    id:string,
-    content: string
+    id?: string,
+    content: string,
+    date: number,
+    parent: string
 }

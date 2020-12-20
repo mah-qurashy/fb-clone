@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Subscription } from 'rxjs'
 import { Post } from './post.model'
+import { Comment } from './comment.model'
 import { PostsService } from './posts.service'
 
 @Component({
@@ -9,39 +10,53 @@ import { PostsService } from './posts.service'
 	styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit, OnDestroy {
-  public posts: Post[] = []
+	public posts: Post[] = []
   private postsSub: Subscription
-  public likesNotification: number = 0
-  private likesSub: Subscription
+
+  public comments: Comment[] = []
+  private commentsSub: Subscription
+  
+	public likesNotification: number = 0
+	private likesSub: Subscription
 
 	constructor(private postsService: PostsService) {}
 
 	ngOnInit() {
-		this.postsSub = this.postsService.posts.subscribe((posts) => {
-      this.posts = posts
+		this.postsSub = this.postsService.postsSub.subscribe((posts) => {
+      this.posts=posts
     })
-      this.likesSub = this.postsService.likes.subscribe((likes) => {
-        this.likesNotification = likes.likesCount
-
+    this.commentsSub = this.postsService.commentsSub.subscribe((comments) => {
+      this.comments=comments
 		})
-  }
-  ngOnDestroy(){
-    this.postsSub.unsubscribe()
-  }
+		this.likesSub = this.postsService.likesSub.subscribe((likes) => {
+			this.likesNotification = likes.likesCount
+		})
+	}
+	ngOnDestroy() {
+		this.postsSub.unsubscribe()
+		this.likesSub.unsubscribe()
+	}
 	addPost(content: string) {
-    this.postsService.addPost(content)
+		this.postsService.addPost(content)
+	}
+	deletePost(id: string) {
+		this.postsService.deletePost(id)
+	}
+	likePost(likes: number, id: string) {
+		this.postsService.likePost(likes, id, this.likesNotification)
   }
-  deletePost(id: string) {
-    this.postsService.deletePost(id)
+  addComment(postId: string, content: string){
+    this.postsService.addComment(postId,content)
   }
-  likePost(likes:number,id:string){
-  
-    this.postsService.likePost(likes,id,this.likesNotification)
+  deleteComment(postId: string, commentId: string){
+    this.postsService.deleteComment(commentId)
   }
-  clearNotifications(){
-    this.postsService.clearNotifications()
+  getPostComments(postId: string){
+    return this.comments.filter((comment)=>comment.parent===postId)
   }
-
+	clearNotifications() {
+		this.postsService.clearNotifications()
+	}
 	//prevents rebuilding entire dom when single post is modified
 	trackPostByFn(index, post) {
 		return post.id

@@ -39,15 +39,15 @@
               </div>
             </ion-card-header>
             <ion-card-content>
-              <ion-textarea class="comment" placeholder="Add a comment"></ion-textarea>
+              <ion-textarea class="comment" placeholder="Add a comment" #commentInput></ion-textarea>
               <div class="ion-text-right">
-                <ion-button>Reply</ion-button>
+                <ion-button (click)="addComment(post.id,commentInput.value)">Reply</ion-button>
               </div>
               <ion-list>
-                <ion-item *ngFor="let comment of post.comments trackBy: trackCommentByFn, let i = index">
-                  <h3>Comment 1</h3>
+                <ion-item *ngFor="let comment of getPostComments(post.id) trackBy: trackCommentByFn, let i = index">
+                  <h3>{{comment.content}}</h3>
                   <div slot="end">
-                    <ion-button color="danger">Delete</ion-button>
+                    <ion-button (click)="deleteComment(post.id,comment.id)" color="danger">Delete</ion-button>
                   </div>
                 </ion-item>
               </ion-list>
