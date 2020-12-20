@@ -33,7 +33,8 @@ export class HomePage implements OnInit, OnDestroy {
 		})
 	}
 	ngOnDestroy() {
-		this.postsSub.unsubscribe()
+    this.postsSub.unsubscribe()
+    this.commentsSub.unsubscribe()
 		this.likesSub.unsubscribe()
 	}
 	addPost(content: string) {
